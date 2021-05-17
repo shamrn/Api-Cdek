@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block content %}
+    {% for product in products %}
+    <div>
+        <h2>{{ product.name }}</h2>
+        {% thumbnail product.image "150x150" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+        <a href="{% url 'order' product.id %}">Оформить</a>
+    </div>
+    <hr>
+    {% endfor %}
+    <hr>
+    <a href="to_html">Отправить html</a>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h2>Товар: {{ product.name }}</h2>
+        <form action="." method="GET">
+             <select name="region" onchange="this.form.submit()">
+             <option>Выберите ваш регион</option>
+             {% for region, code in regions.items %}
+                <option value="{{ code }}">{{ region }}</option>
+             {% endfor %}
+             </select>
+        </form>
+           <br><form action="." method="GET">
+             <select name="city" onchange="this.form.submit()">
+             {% if cities %}
+                  <option>Выберите ваш город</option>
+             {% for region, code in cities.items %}
+                 <option value="{{ code }}">{{ region }}</option>
+                  {% endfor %}
+             {% else %}
+                <option>Для начала выберите ваш регион</option>
+             {% endif %}
+             </select>
+        </form>
+        <br>
+        {% if data_delivery %}
+            {% if message_error %}
+            <p>{{ message_error }}</p>
+            {% else %}
+            <p>Сроки доставки от {{ data_delivery.period_min }} до {{ data_delivery.period_max }} дней</p>
+            <p>Ориентировочная стоимость доставки {{ data_delivery.total_sum }} {{ data_delivery.currency }}.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
